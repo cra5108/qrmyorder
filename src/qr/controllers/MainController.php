@@ -2,12 +2,22 @@
 
 class MainController {
 	private $twig;
+	private $db;
+	private $MenuItemsModel;
 
-	public function __construct($twig) {
-		$this->twig = $twig;
+	public function __construct($app) {
+		$this->twig = $app->twig;
+		$this->db = $app->db;
+		$this->MenuItemsModel = $app->MenuItemsModel;
 	}
 
-	public function render() {
-		echo $this->twig->render('index.html', array('name' => 'abc'));
+	// Home page
+	public function index() {
+		echo $this->twig->render('index.html', array('title' => 'QRMyOrder' ,'name' => 'abc'));
+	}
+
+	// Create order page
+	public function createOrder() {
+		$this->MenuItemsModel->getMenuCategories();
 	}
 }

@@ -18,6 +18,11 @@ class MainController {
 
 	// Create order page
 	public function createOrder() {
-		$this->MenuItemsModel->getMenuCategories();
+		echo $this->twig->render(
+			'create_order.html',
+			array(
+				'menu_items' => $this->MenuItemsModel->get()
+			)
+		);
 	}
 }

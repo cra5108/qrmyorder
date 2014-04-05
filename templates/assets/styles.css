@@ -1,3 +1,25 @@
 body {
 	padding-top: 70px;
 }
+
+.menu-item {
+	background: #EEE;
+	border: 1px solid #DEDEDE;
+}
+
+.menu-item.title {
+	cursor: pointer;
+}
+
+.addon-container {
+	display: none;
+}
+
+.addon-container .category {
+	background: #FFF;
+	border: 1px solid #DEDEDE;
+}
+
+.addon-container .types .radio-container {
+	margin: 0 0 0 15px;
+}

@@ -1,0 +1,48 @@
+{% include "header.html" %}
+
+
+    <div class="container">
+    	<div class="row">
+    		<div class="col-lg-4">
+	        	{% for menu_item in menu_items %}
+					<div class="menu-item title row">
+						<div class="col-lg-12">
+							<h3>{{ menu_item.name }}</h3>
+						</div>
+			        </div>
+
+			        <div class="addon-container row">
+						<div class="category col-lg-12">
+				        	{% for addon_category_name,addon in menu_item.addons %}
+				        		<div class="addon">
+				            		<h4>{{ addon_category_name }}</h4>
+				            		<div class="types">
+				            			<fieldset>
+				                		{% for addon_type in addon %}
+				                			<div class="radio-container">
+				                				{% if addon_type.menu_item_detail_type_id == 6 or addon_type.menu_item_detail_type_id == 7 %}
+				                					<input type="checkbox" id="{{ menu_item.id }}-addon-{{ addon_type.addonId }}" name="{{ menu_item.id }}-cateagory-{{ addon_category_name }}" value="{{ addon_type.addonId }}"> {{addon_type.addonName}}</input>
+				                				{% else %}
+				                					<input type="radio" id="{{ menu_item.id }}-addon-{{ addon_type.addonId }}" name="{{ menu_item.id }}-cateagory-{{ addon_category_name }}" value="{{ addon_type.addonId }}"> {{addon_type.addonName}}</input>
+				                				{% endif %}
+				                			</div>
+				                		{% endfor %}
+				                		</fieldset>
+				            		</div>
+				        		</div>
+				        	{% endfor %}
+					        <button class="btn btn-primary">
+					        	Add to Order
+					        </button>
+			        	</div>
+		        	</div>
+		        {% endfor %}
+	        </div>
+	        <div class="col-lg-8">
+
+	        </div>
+        </div>
+    </div>
+    <!-- /.container -->
+
+{% include "footer.html" %}

@@ -3,9 +3,9 @@
 
     <div class="container">
     	<div class="row">
-    		<div class="col-lg-4">
+    		<div class="order-menu col-lg-4">
 	        	{% for menu_item in menu_items %}
-					<div class="menu-item title row">
+					<div id="menu-item-{{ menu_item.id }}" class="menu-item title row">
 						<div class="col-lg-12">
 							<h3>{{ menu_item.name }}</h3>
 						</div>
@@ -21,9 +21,9 @@
 				                		{% for addon_type in addon %}
 				                			<div class="radio-container">
 				                				{% if addon_type.menu_item_detail_type_id == 6 or addon_type.menu_item_detail_type_id == 7 %}
-				                					<input type="checkbox" id="{{ menu_item.id }}-addon-{{ addon_type.addonId }}" name="{{ menu_item.id }}-cateagory-{{ addon_category_name }}" value="{{ addon_type.addonId }}"> {{addon_type.addonName}}</input>
+				                					<label for="{{ menu_item.id }}-category-{{ addon_category_name }}"><input type="checkbox" id="{{ menu_item.id }}-addon-{{ addon_type.addonId }}" name="{{ menu_item.id }}-category-{{ addon_category_name }}" value="{{ addon_type.addonId }}"> </input>{{addon_type.addonName}}</label>
 				                				{% else %}
-				                					<input type="radio" id="{{ menu_item.id }}-addon-{{ addon_type.addonId }}" name="{{ menu_item.id }}-cateagory-{{ addon_category_name }}" value="{{ addon_type.addonId }}"> {{addon_type.addonName}}</input>
+				                					<label for="{{ menu_item.id }}-category-{{ addon_category_name }}"><input type="radio" id="{{ menu_item.id }}-addon-{{ addon_type.addonId }}" name="{{ menu_item.id }}-category-{{ addon_category_name }}" value="{{ addon_type.addonId }}"> </input>{{addon_type.addonName}}</label>
 				                				{% endif %}
 				                			</div>
 				                		{% endfor %}
@@ -31,14 +31,15 @@
 				            		</div>
 				        		</div>
 				        	{% endfor %}
-					        <button class="btn btn-primary">
+
+					        <a class="add-to-order-btn btn btn-primary" data-itemid="{{ menu_item.id }}">
 					        	Add to Order
-					        </button>
+					        </a>
 			        	</div>
 		        	</div>
 		        {% endfor %}
 	        </div>
-	        <div class="col-lg-8">
+	        <div class="cart col-lg-8">
 
 	        </div>
         </div>

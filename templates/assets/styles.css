@@ -11,6 +11,20 @@ body {
 	cursor: pointer;
 }
 
+
+.cart-items .title {
+	clear: both;
+	overflow: hidden;
+}
+
+.desc {
+	float: left;
+}
+
+.price {
+	float: right;
+}
+
 .addon-container {
 	display: none;
 }
@@ -22,4 +36,36 @@ body {
 
 .addon-container .types .radio-container {
 	margin: 0 0 0 15px;
+}
+
+.panel-heading {
+	font-size: 24px;
+}
+
+.panel .panel-default {
+
+}
+
+.cart .panel {
+	margin: 15px 0 0 0;
+	clear: both;
+	overflow: hidden;
+}
+
+.cart .order-btns {
+	padding: 15px;
+	float: left;
+}
+
+@media all and (max-width: 768px) {
+	.cart .order-btns {
+		text-align: center;
+		float: none;
+	}
+}
+
+.total-price {
+	float: right;
+	padding: 15px;
+	font-size: 24px;
 }

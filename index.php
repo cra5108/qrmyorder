@@ -41,4 +41,13 @@ $klein->respond('GET', '/createorder', function ($request, $response, $service, 
 	$app->MenuController->createOrder();
 });
 
+$klein->respond('GET', '/getprice', function($request, $response, $service, $app) {
+	$addonIds = $request->paramsGet()->get('addonIds');
+	$menuItemId =  $request->paramsGet()->get('menuItemId');
+
+	$price = $app->MenuItemsModel->getPrice($menuItemId, $addonIds);
+	$response->append($price);
+	$response->send();
+});
+
 $klein->dispatch();

@@ -7,7 +7,12 @@
 	        	{% for menu_item in menu_items %}
 					<div id="menu-item-{{ menu_item.id }}" class="menu-item title row">
 						<div class="col-lg-12">
-							<h3>{{ menu_item.name }}</h3>
+							<span class="desc">
+								<h3>{{ menu_item.name }}</h3>
+							</span>
+							<span class="price">
+								<h3>{{ menu_item.price }}</h3>
+							</span>
 						</div>
 			        </div>
 
@@ -22,8 +27,15 @@
 				                			<div class="radio-container">
 				                				{% if addon_type.menu_item_detail_type_id == 6 or addon_type.menu_item_detail_type_id == 7 %}
 				                					<label for="{{ menu_item.id }}-category-{{ addon_category_name }}"><input type="checkbox" id="{{ menu_item.id }}-addon-{{ addon_type.addonId }}" name="{{ menu_item.id }}-category-{{ addon_category_name }}" value="{{ addon_type.addonId }}"> </input>{{addon_type.addonName}}</label>
+				                					{% if addon_type.price != 0.00 %}
+				                						<span class="price">+{{ addon_type.price }}</span>
+				                					{% endif %}
 				                				{% else %}
-				                					<label for="{{ menu_item.id }}-category-{{ addon_category_name }}"><input type="radio" id="{{ menu_item.id }}-addon-{{ addon_type.addonId }}" name="{{ menu_item.id }}-category-{{ addon_category_name }}" value="{{ addon_type.addonId }}"> </input>{{addon_type.addonName}}</label>
+				                					<label for="{{ menu_item.id }}-category-{{ addon_category_name }}"><input type="radio" id="{{ menu_item.id }}-addon-{{ addon_type.addonId }}" name="{{ menu_item.id }}-category-{{ addon_category_name }}" value="{{ addon_type.addonId }}"> </input>{{addon_type.addonName}} </label>
+
+				                					{% if addon_type.price != 0.00 %}
+				                						<span class="price">+{{ addon_type.price }}</span>
+				                					{% endif %}
 				                				{% endif %}
 				                			</div>
 				                		{% endfor %}
@@ -39,9 +51,27 @@
 		        	</div>
 		        {% endfor %}
 	        </div>
-	        <div class="cart col-lg-8">
 
+	        <div class="cart col-lg-8">
+	        	<div class="panel panel-default">
+	        	  	<div class="panel-heading">Cart</div>
+	        	  	<div class="cart-items panel-body">
+	        	  	</div>
+
+	        	  	<div class="total-price">
+	        	  	</div>
+
+	        	  	<div class="order-btns">
+		        		<a class="btn btn-danger">
+		        			Cancel Order
+		        		</a>
+		        		<a class="btn btn-success">
+		        			QR My Order
+		        		</a>
+		        	</div>
+        		</div>
 	        </div>
+
         </div>
     </div>
     <!-- /.container -->

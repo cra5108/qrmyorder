@@ -38,4 +38,20 @@ class MenuItems {
 
 		return $returnArray;
 	}
+
+	public function getPrice($menuItemId, $addonIds) {
+
+		$addonsQueryCSV = "'" . implode("','", explode(',', $addonIds)) . "'";
+
+		$queryString = 'SELECT sum(mit.price';
+
+		if (strlen($addonIds) > 0) {
+			$queryString .= '+ (SELECT sum(mid.price) FROM menu_item_detail AS mid WHERE id IN (' . $addonsQueryCSV .'))';
+		}
+		$queryString .= ') FROM menu_item_type AS mit WHERE mit.id=' . $menuItemId;
+
+		$price = $this->db->query($queryString)->fetch();
+
+		return $price[0];
+	}
 }

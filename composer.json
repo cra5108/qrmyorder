@@ -1,0 +1,10 @@
+{
+    "name": "hackpsu/qrmyorder",
+    "require": {
+    	"klein/klein" : "2.0.x",
+        "twig/twig": "1.*"
+    },
+    "autoload": {
+    	"psr-0": { "qr": "src/" }
+    }
+}

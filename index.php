@@ -57,8 +57,9 @@ $klein->respond('POST', '/submitorder', function($request, $response, $service, 
 	$response->send();
 });
 
-$klein->respond('GET', '/order/[:orderId]?', function($request, $response, $service, $app) {
-	echo 'order' . $request->orderId;
+$klein->respond('GET', '/order/[:orderId]', function($request, $response, $service, $app) {
+	$app->MainController->getOrder($request->orderId);
+	//echo 'order' . $request->orderId;
 });
 
 $klein->dispatch();

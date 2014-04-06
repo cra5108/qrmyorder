@@ -21,6 +21,7 @@ class MainController {
 		echo $this->twig->render(
 			'create_order.html',
 			array(
+				'title' => 'Create Order',
 				'menu_items' => $this->MenuItemsModel->get()
 			)
 		);
@@ -49,7 +50,7 @@ class MainController {
 
 			$price = $this->MenuItemsModel->getPrice($menuItemId, $addonsCSV);
 
-			$addonsQueryCSV = "'" . implode("','", explode(',', $addonsCSV)) . "'";
+			//$addonsQueryCSV = "'" . implode("','", explode(',', $addonsCSV)) . "'";
 
 			$query = $this->db->prepare(
 				'INSERT INTO ordered_items (order_id, menu_item_detail_id, menu_item_type_id, price)'.
@@ -58,7 +59,7 @@ class MainController {
 			$query->execute(
 				array(
 					':uniqueId' => $uniqueId,
-					':addonsCSV' => $addonsQueryCSV,
+					':addonsCSV' => $addonsCSV,
 					':menuItemId' => $menuItemId,
 					':totalPrice' => $price
 				)
@@ -69,5 +70,44 @@ class MainController {
 		//return 'https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl=http://qrmyorder.com/order/' . $uniqueId;
 		return 'https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl=192.168.56.101/order/' . $uniqueId;
 
+	}
+
+	public function getOrder($orderId) {
+		$retOrderedItems = array();
+
+		$orderedItems = $this->db->query(
+			"SELECT oi.menu_item_detail_id AS csvs, oi.menu_item_type_id, oi.price, menu_item_type.name AS menuItemName
+			FROM ordered_items AS oi INNER JOIN menu_item_type ON oi.menu_item_type_id=menu_item_type.id
+			WHERE order_id='". $orderId. "'")->fetchAll(PDO::FETCH_OBJ);
+
+		foreach ($orderedItems as $orderedItem) {
+			//print_r($orderedItem);
+			$orderedItem->addons = array();
+
+			$addons = $this->db->query(
+				"select mid.id AS midID, mid.name AS midName,
+					midt.id AS midtID, midt.name AS midtName
+					FROM menu_item_detail AS mid JOIN menu_item_detail_type AS midt ON mid.menu_item_detail_type_id=midt.id
+					WHERE mid.id IN (". $orderedItem->csvs . ")"
+				)->fetchAll(PDO::FETCH_OBJ);
+
+			foreach ($addons as $addon) {
+				if (!isset($orderedItem->addons[$addon->midtName])) {
+					$orderedItem->addons[$addon->midtName] = array();
+				}
+
+				array_push($orderedItem->addons[$addon->midtName], $addon);
+			}
+
+			array_push($retOrderedItems, $orderedItem);
+		}
+
+		echo $this->twig->render(
+			'order.html',
+			array(
+				'title' => 'Order',
+				'ordered_items' => $retOrderedItems
+			)
+		);
 	}
 }

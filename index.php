@@ -2,7 +2,6 @@
 
 // Auto load the composer libraries
 require_once __DIR__ . '/vendor/autoload.php';
-
 require_once __DIR__ .'/src/qr/config/config.php';
 // TODO: Should be autoloaded by composer autoload
 require_once __DIR__ .'/src/qr/models/MenuItems.php';
@@ -52,7 +51,14 @@ $klein->respond('GET', '/getprice', function($request, $response, $service, $app
 
 $klein->respond('POST', '/submitorder', function($request, $response, $service, $app) {
 	$csvs = $request->paramsPost()->get('csv');
-	$app->MainController->submitOrder($csvs);
+	$qrURL = $app->MainController->submitOrder($csvs);
+
+	$response->append($qrURL);
+	$response->send();
+});
+
+$klein->respond('GET', '/order/[:orderId]?', function($request, $response, $service, $app) {
+	echo 'order' . $request->orderId;
 });
 
 $klein->dispatch();

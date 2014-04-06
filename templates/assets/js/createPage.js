@@ -22,8 +22,7 @@ $(document).ready(function() {
 		});
 
 		$.when(submitReq).then(function(data) {
-			console.log('done submitting');
-			console.log(data);
+			window.location = data;
 		});
 	});
 
@@ -32,6 +31,7 @@ $(document).ready(function() {
 	});
 
 	$('.add-to-order-btn').on('click', function() {
+
 		var selectedMenuItemId = $(this).attr('data-itemid'),
 			selectedMenuDiv = $('#menu-item-' + selectedMenuItemId),
 			menuItemName = selectedMenuDiv.find('.desc').text(),
@@ -45,6 +45,7 @@ $(document).ready(function() {
 		};
 
 		var selectedRadioBtns = selectedMenuDiv.next().find('input[type=radio]:checked, input[type=checkbox]:checked');
+
 		$.each(selectedRadioBtns, function(i, radioBtn) {
 			var nameAttr = $(radioBtn).attr('name'),
 				nameAttrArray = nameAttr.split('-'),

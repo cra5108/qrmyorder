@@ -66,5 +66,8 @@ class MainController {
 		}
 		// insert all menu items
 
+		//return 'https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl=http://qrmyorder.com/order/' . $uniqueId;
+		return 'https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl=192.168.56.101/order/' . $uniqueId;
+
 	}
 }

@@ -23,7 +23,7 @@ $klein->respond(function($request, $response, $service, $app) use ($klein, $appC
 		return new MenuItems($app->db);
 	});
 
-	$app->register('MenuController', function() use ($app)  {
+	$app->register('MainController', function() use ($app)  {
 		return new MainController($app);
 	});
 
@@ -34,11 +34,11 @@ $klein->respond(function($request, $response, $service, $app) use ($klein, $appC
 });
 
 $klein->respond('GET', '/', function ($request, $response, $service, $app) {
-	$app->MenuController->index();
+	$app->MainController->index();
 });
 
 $klein->respond('GET', '/createorder', function ($request, $response, $service, $app) {
-	$app->MenuController->createOrder();
+	$app->MainController->createOrder();
 });
 
 $klein->respond('GET', '/getprice', function($request, $response, $service, $app) {
@@ -48,6 +48,11 @@ $klein->respond('GET', '/getprice', function($request, $response, $service, $app
 	$price = $app->MenuItemsModel->getPrice($menuItemId, $addonIds);
 	$response->append($price);
 	$response->send();
+});
+
+$klein->respond('POST', '/submitorder', function($request, $response, $service, $app) {
+	$csvs = $request->paramsPost()->get('csv');
+	$app->MainController->submitOrder($csvs);
 });
 
 $klein->dispatch();

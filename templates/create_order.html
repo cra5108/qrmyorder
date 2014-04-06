@@ -11,7 +11,9 @@
 								<h3>{{ menu_item.name }}</h3>
 							</span>
 							<span class="price">
-								<h3>{{ menu_item.price }}</h3>
+								{% if menu_item.price != 0.00 %}
+									<h3>{{ menu_item.price }}</h3>
+								{% endif %}
 							</span>
 						</div>
 			        </div>
@@ -62,10 +64,10 @@
 	        	  	</div>
 
 	        	  	<div class="order-btns">
-		        		<a class="btn btn-danger">
+		        		<a class="cancel-order btn btn-danger">
 		        			Cancel Order
 		        		</a>
-		        		<a class="btn btn-success">
+		        		<a class="submit-order btn btn-success">
 		        			QR My Order
 		        		</a>
 		        	</div>

@@ -58,6 +58,10 @@ body {
 	margin: 0 0 0 15px;
 }
 
+.add-to-order-btn {
+	margin: 0 0 15px 0;
+}
+
 .panel-heading {
 	font-size: 24px;
 }

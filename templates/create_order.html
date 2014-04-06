@@ -5,6 +5,7 @@
     	<div class="row">
     		<div class="order-menu col-md-4">
 	        	{% for menu_item in menu_items %}
+	        		<form>
 					<div id="menu-item-{{ menu_item.id }}" class="menu-item title row">
 						<div class="col-lg-12">
 							<span class="desc">
@@ -28,12 +29,12 @@
 				                		{% for addon_type in addon %}
 				                			<div class="radio-container">
 				                				{% if addon_type.menu_item_detail_type_id == 6 or addon_type.menu_item_detail_type_id == 7 %}
-				                					<label for="{{ menu_item.id }}-category-{{ addon_category_name }}"><input type="checkbox" id="{{ menu_item.id }}-addon-{{ addon_type.addonId }}" name="{{ menu_item.id }}-category-{{ addon_category_name }}" value="{{ addon_type.addonId }}"> </input>{{addon_type.addonName}}</label>
+				                					<input type="checkbox" id="{{ menu_item.id }}-addon-{{ addon_type.addonId }}" name="{{ menu_item.id }}-category-{{ addon_category_name }}" value="{{ addon_type.addonId }}"> </input><label for="{{ menu_item.id }}-addon-{{ addon_type.addonId }}">{{addon_type.addonName}} </label>
 				                					{% if addon_type.price != 0.00 %}
 				                						<span class="price">+{{ addon_type.price }}</span>
 				                					{% endif %}
 				                				{% else %}
-				                					<label for="{{ menu_item.id }}-category-{{ addon_category_name }}"><input type="radio" id="{{ menu_item.id }}-addon-{{ addon_type.addonId }}" name="{{ menu_item.id }}-category-{{ addon_category_name }}" value="{{ addon_type.addonId }}"> </input>{{addon_type.addonName}} </label>
+				                					<input type="radio" id="{{ menu_item.id }}-addon-{{ addon_type.addonId }}" name="{{ menu_item.id }}-category-{{ addon_category_name }}" value="{{ addon_type.addonId }}"> </input><label for="{{ menu_item.id }}-addon-{{ addon_type.addonId }}"> {{addon_type.addonName}} </label>
 
 				                					{% if addon_type.price != 0.00 %}
 				                						<span class="price">+{{ addon_type.price }}</span>
@@ -51,6 +52,7 @@
 					        </a>
 			        	</div>
 		        	</div>
+		        	</form>
 		        {% endfor %}
 	        </div>
 
